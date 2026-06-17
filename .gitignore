@@ -1,0 +1,11 @@
+# Build
+/target
+*.lock
+
+# Env
+/.git
+/.vscode
+
+# Other
+/other
+/tmp
