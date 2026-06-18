@@ -49,12 +49,9 @@ use {
 
 
 /**
-Command-line interface arguments for initialising the application's state.  
+Command-line interface arguments for initialising the application's state. 
 
-This structure acts as the primary configuration payload, parsed at startup  
-to dictate the initial behaviour of the 3D viewer. It encompasses default  
-parameters for the spatial camera system, lighting environment, and  
-foundational visual settings.
+Parsed at startup to dictate the initial behaviour of the 3D viewer, including camera, lighting, and visual settings.
 */
 #[derive(Debug, Clone, Parser)]
 #[command(author, version, about, propagate_version = true)]
@@ -121,17 +118,12 @@ impl From<Inputs> for Option<PathBuf> {
 impl Arguments {    
     /**
     Validates the parsed command-line arguments for logical correctness.
-    
-    This method performs sanity checks on the provided parameters, such as 
-    ensuring that spatial coordinates and speeds (e.g., `rotation_speed`) 
-    are finite numbers. It should be called immediately after parsing to 
-    guarantee the application state is sound before initialising the renderer.
-    
+
+    Performs checks on parameters like numerical bounds to guarantee a sound application state.
+
     # Terminates
-    
-    If any validation check fails, this method will immediately terminate 
-    the program with a non-zero exit code. It utilises the underlying CLI 
-    parser to print a nicely formatted validation error to standard error.
+
+    Terminates the program with a non-zero exit code and prints an error if validation fails.
     */
     pub fn validate(&self) {
         let error = if ! self.light_direction.is_finite() {
