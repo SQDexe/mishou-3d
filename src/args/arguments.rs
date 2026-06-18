@@ -158,24 +158,6 @@ impl Arguments {
                 .exit();
             }
         }
-
-    /**
-    Retrieves and consumes the provided input file path.  
-    
-    This method extracts the target 3D model's `PathBuf` from either a  
-    positional argument or a dedicated flag. It enforces mutual exclusivity  
-    using an exclusive OR (`XOR`) operation. As it takes ownership of the  
-    internal path buffers, subsequent calls to this method will yield `None`.  
-    
-    Returns `Some(PathBuf)` if exactly one valid input path was provided  
-    via the command line, or `None` if the input was omitted or has already  
-    been extracted.
-    */
-    pub fn extract_input_file(&mut self) -> Option<PathBuf> {
-        let Inputs { ref mut positional, ref mut flag } = self.input_file;
-
-        positional.take().xor(flag.take())
-        }
     }
 
 impl From<Arguments> for SettingsDto {
