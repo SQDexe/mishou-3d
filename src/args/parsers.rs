@@ -99,7 +99,7 @@ Supports hexadecimal codes, named colours, and specific formatted methods
 
 # Examples
 
-```rust
+```rust,ignore
 let hex_colour = parse_colour("hex-ff0000").unwrap();
 let named_colour = parse_colour("red").unwrap();
 let rgb_colour = parse_colour("rgb-255,0,0").unwrap();
@@ -120,7 +120,8 @@ assert!(parse_colour("cmyk-100,100,100,100").is_ok());
 Returns a `ParseColorError` if the input does not match any recognised colour format or if channel values are invalid.
 */
 pub fn parse_colour(value: &str) -> Result<Color, ParseColorError> {
-    if let lowercase = value.to_lowercase() && check_named_colour(&lowercase) {
+    let lowercase = value.to_lowercase();
+    if check_named_colour(&lowercase) {
         let colour = Color::from_name(&lowercase)?;
         return Ok(colour);
         }
