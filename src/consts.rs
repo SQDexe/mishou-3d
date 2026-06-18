@@ -45,8 +45,6 @@ pub mod labels {
     pub const ENGINE_NAME: &str = const_concat!(PKG_NAME, "-engine");
     /** Stylised application name. */
     pub const STYLISED_APP_NAME: &str = "Mishō";
-    /** Application name written with kanji. */
-    pub const KANJI_APP_NAME: &str = "見小";
     /** Stylised application name with version number attached. */
     pub const STYLISED_APP_NAME_WITH_VERSION: &str = const_concat!(STYLISED_APP_NAME, " ", PKG_VERSION);
     }
