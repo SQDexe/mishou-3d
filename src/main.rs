@@ -6,10 +6,7 @@ use {
         ControlFlow,
         EventLoop
         },
-    std::process::{
-        ExitCode,
-        Termination
-        },
+    std::process::ExitCode,
     core::error::Error,
     mishou_3d::{
         App,
@@ -94,5 +91,5 @@ fn main() -> ExitCode {
         }
         
     /* Return exit code based on result */
-    result.report()
+    result.map_or(ExitCode::FAILURE, |_| ExitCode::SUCCESS)
     }
