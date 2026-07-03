@@ -8,6 +8,7 @@ use {
         },
     std::process::ExitCode,
     core::error::Error,
+    sqds_tools::ResolveExitCode,
     mishou_3d::{
         App,
         Arguments,
@@ -91,5 +92,5 @@ fn main() -> ExitCode {
         }
         
     /* Return exit code based on result */
-    result.map_or(ExitCode::FAILURE, |_| ExitCode::SUCCESS)
+    result.resolve()
     }
