@@ -1,6 +1,6 @@
 [package]
 name = "mishou-3d"
-version = "1.0.1"
+version = "1.0.2"
 edition = "2024"
 description = "Simple Rust application for viewing, and exploring 3D models"
 authors = ["SQD.exe"]
