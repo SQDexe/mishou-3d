@@ -16,7 +16,7 @@ const-str = { version = "1.1.0", features = ["proc"] }
 egui-file-dialog = "0.10.0"
 egui_winit_vulkano = "0.28.0"
 env_logger = { version = "0.11.11", default-features = false, features = ["auto-color"] }
-glam = { version = "0.33.2", default-features = false }
+glam = { version = "0.33.2", default-features = false, features = ["std"] }
 itertools = "0.15.0"
 log = { version = "0.4.33", features = ["max_level_info", "release_max_level_info"] }
 rfd = "0.17.2"

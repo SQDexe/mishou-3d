@@ -2,7 +2,11 @@ use {
     glam::{
         Vec2,
         Vec3,
-        Mat4
+        Mat4,
+        camera::rh::{
+            proj::vulkan::perspective,
+            view::look_at_mat4
+            }
         },
     std::time::Duration,
     crate::{
@@ -122,23 +126,17 @@ impl Camera {
     pub fn view_matrix(&self) -> Mat4 {
         let forward = self.forward_dir();
 
-        Mat4::look_at_rh(self.position, self.position + forward, Vec3::Y)
+        look_at_mat4(self.position, self.position + forward, Vec3::Y)
         }
 
     /** Generates the perspective projection matrix for the given screen aspect ratio. */
     pub fn projection_matrix(&self, aspect_ratio: f32) -> Mat4 {
-        /* Projection calculation */
-        let mut proj = Mat4::perspective_rh(
+        perspective(
             self.fov.to_radians(),
             aspect_ratio,
             self.z_near,
             self.z_far,
-            );
-        
-        /* Correction due to Vulkan having inverted y-axis */
-        proj.y_axis.y *= -1.0; 
-        
-        proj
+            )
         }
 
     /** Applies rotational changes to the camera based on relative mouse movements. */
