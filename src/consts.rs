@@ -61,9 +61,11 @@ pub mod config {
         };
 
     /** Boolean value indicating whether the binary was compiled in debug mode. */
+    #[allow(unused, reason = "This value might remain unsed")]
     pub const DEBUG_MODE: bool = cfg!(debug_assertions);
 
     /** Identifier for the Vulkan validation layer used in debug builds. */
+    #[cfg(debug_assertions)]
     const VALIDATION_LAYER_ID: &str = "VK_LAYER_KHRONOS_validation";
     /** Collection of Vulkan layer identifiers to be enabled for this project. */
     pub const VULKAN_LAYER_IDS: &[&str] = &[
