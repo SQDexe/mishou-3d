@@ -344,10 +344,6 @@ impl ApplicationHandler for App {
         if let Err(error) = self.resume_handler(event_loop) {
             self.window_manager.report_error(error);
             }
-
-        if self.window_manager.should_exit() {
-            event_loop.exit();
-            }
         }
 
     fn window_event(&mut self, event_loop: &ActiveEventLoop, window_id: WindowId, event: WindowEvent) {
@@ -355,7 +351,7 @@ impl ApplicationHandler for App {
 
         match event {
             WindowEvent::CloseRequested =>
-                self.window_manager.request_exit(),
+                event_loop.exit(),
             WindowEvent::RedrawRequested if let Some(mut active_app) = self.active_app(window_id) => 
                 if let Err(error) = active_app.redraw_handler() {
                     self.window_manager.report_error(error);
@@ -370,10 +366,6 @@ impl ApplicationHandler for App {
                 active_app.mouse_event_handler(state, button),
             _ => ()
             }
-
-        if self.window_manager.should_exit() {
-            event_loop.exit();
-            }
         }
 
     fn device_event(&mut self, _: &ActiveEventLoop, _: DeviceId, event: DeviceEvent) {
@@ -384,6 +376,11 @@ impl ApplicationHandler for App {
         
     fn about_to_wait(&mut self, event_loop: &ActiveEventLoop) {
         /* Activated in order to keep the image from freezing. */
+        if self.window_manager.should_exit() {
+            event_loop.exit();
+            return;
+            }
+
         let Some(renderer) = self.windows_context.get_primary_renderer() else {
             return;
             };
